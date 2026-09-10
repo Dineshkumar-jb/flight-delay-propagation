@@ -1,0 +1,35 @@
+graph TD
+    %% Level-1 Data Flow Diagram (DFD) Notation (Processes, Data Stores, Entities)
+    classDef entityStyle fill:#eff6ff,stroke:#1d4ed8,stroke-width:2.5px,color:#1e3a8a,font-weight:bold;
+    classDef processStyle fill:#ecfdf5,stroke:#059669,stroke-width:2px,color:#064e3b,font-weight:bold;
+    classDef storeStyle fill:#f1f5f9,stroke:#475569,stroke-width:2px,color:#0f172a,font-weight:bold;
+
+    %% External Entities (Double-lined rectangles)
+    E1[["External Entity [E1]:<br/>U.S. DOT BTS Flight Data Repository"]]:::entityStyle
+    E2[["External Entity [E2]:<br/>Airline Ops & FAA Controller Dashboard"]]:::entityStyle
+
+    %% Processes (Circular / Bubble Nodes)
+    P1(("1.0<br/>Ingest & Preprocess<br/>Flight Telemetry")):::processStyle
+    P2(("2.0<br/>Mine Sequential<br/>Delay Patterns")):::processStyle
+    P3(("3.0<br/>Mine Spatial<br/>Airport Clusters")):::processStyle
+    P4(("4.0<br/>Integrate Spatio-Seq<br/>Graph & Train ML")):::processStyle
+    P5(("5.0<br/>Render Interactive<br/>Map & Dashboard")):::processStyle
+
+    %% Data Stores (Open / Cylinder DB Nodes)
+    D1[("(D1) Flight Sequence Repository")]:::storeStyle
+    D2[("(D2) Frequent Sequential Pattern Base")]:::storeStyle
+    D3[("(D3) Spatial Cluster & Rule Index")]:::storeStyle
+    D4[("(D4) Propagation Graph & ML Model Store")]:::storeStyle
+
+    %% Data Flows (Labeled Directional Arrows)
+    E1 -- "Raw Flight Telemetry & Coordinates" --> P1
+    P1 -- "Cleaned Flight Sequences" --> D1
+    D1 -- "Tail-Number Flight Chains" --> P2
+    D1 -- "Airport Coordinates & Distances" --> P3
+    P2 -- "Frequent s-patterns & Rules" --> D2
+    P3 -- "Spatial Hotspots & Clusters" --> D3
+    D2 -- "Sequential Delay Trajectories" --> P4
+    D3 -- "Geodesic Cluster Geometries" --> P4
+    P4 -- "Trained ML Models & Risk Scores" --> D4
+    D4 -- "Propagation Graph & Centrality Metrics" --> P5
+    P5 -- "Interactive Delay Map & Alerts" --> E2

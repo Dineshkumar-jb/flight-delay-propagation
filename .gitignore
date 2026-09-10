@@ -1,0 +1,20 @@
+# Ignore XML diagram files as requested
+*.xml
+
+# Ignore python diagram / generator scratch scripts
+generate_*.py
+rebuild_*.py
+update_*.py
+
+# Ignore Office lock files
+.~lock.*
+
+# Python Cache & Environment
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Antigravity & OS files
+.DS_Store
+.tempmediaStorage/

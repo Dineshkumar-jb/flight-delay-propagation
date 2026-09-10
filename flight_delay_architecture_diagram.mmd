@@ -1,0 +1,59 @@
+graph TD
+    %% System Architecture Diagram (Layer & Container Focus)
+    classDef titleStyle fill:#1e293b,stroke:#0f172a,color:#ffffff,font-weight:bold;
+    classDef sourceStyle fill:#e0f2fe,stroke:#0284c7,color:#0369a1,font-weight:bold;
+    classDef prepStyle fill:#ffffff,stroke:#475569,color:#1e293b;
+    classDef spmStyle fill:#ffffff,stroke:#ea580c,color:#9a3412;
+    classDef sdmStyle fill:#ffffff,stroke:#16a34a,color:#166534;
+    classDef integStyle fill:#e0e7ff,stroke:#4338ca,color:#1e1b4b,font-weight:bold;
+    classDef visStyle fill:#ffffff,stroke:#9333ea,color:#6b21a8;
+    classDef evalStyle fill:#ffffff,stroke:#ca8a04,color:#854d0e;
+    classDef sinkStyle fill:#f1f5f9,stroke:#334155,color:#0f172a,font-weight:bold;
+
+    Title["SYSTEM ARCHITECTURE: FLIGHT DELAY PROPAGATION ANALYSIS<br/>DINESH KUMAR J B (23MIA1126)"]:::titleStyle
+    Source["Raw Flight Operations Data<br/>(US DOT BTS Dataset)"]:::sourceStyle
+
+    subgraph DataPrep ["Data Preparation Layer"]
+        P1["1.1 Data Cleaning & Imputation"]:::prepStyle
+        P2["1.2 Flight Chain Construction &lt;Airport, Delay&gt;"]:::prepStyle
+        P3["1.3 Airport Coordinate Attachment (Haversine)"]:::prepStyle
+    end
+
+    subgraph SPM ["Sequential Pattern Mining (SPM)"]
+        SPM1["Edit Distance Alignment"]:::spmStyle
+        SPM2["GSP Algorithm (Apriori BFS)"]:::spmStyle
+        SPM3["PrefixSpan (Pattern Growth DFS)"]:::spmStyle
+    end
+
+    subgraph SDM ["Spatial Data Mining (SDM)"]
+        SDM1["Spatial Association Mining"]:::sdmStyle
+        SDM2["ST-DBSCAN Clustering"]:::sdmStyle
+    end
+
+    Integ["Spatio-Sequential Integration Core<br/>Merge Sequential Trajectories with Spatial Clusters"]:::integStyle
+
+    subgraph Vis ["Visualization Layer"]
+        V1["Interactive Delay Map (Leaflet)"]:::visStyle
+        V2["Airport Network Graph (NetworkX)"]:::visStyle
+    end
+
+    subgraph Eval ["Evaluation Layer"]
+        E1["SVM / RF / GB Classifiers"]:::evalStyle
+        E2["Silhouette Score"]:::evalStyle
+        E3["Support / Confidence Rules"]:::evalStyle
+    end
+
+    Sink["Final Output: Delay Patterns &amp; Spatial Insights"]:::sinkStyle
+
+    Title --> Source
+    Source --> DataPrep
+    P1 --> P2
+    P2 --> P3
+    P3 --> SPM
+    P3 --> SDM
+    SPM --> Integ
+    SDM --> Integ
+    Integ --> Vis
+    Integ --> Eval
+    Vis --> Sink
+    Eval --> Sink

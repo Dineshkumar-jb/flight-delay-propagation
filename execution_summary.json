@@ -1,0 +1,19 @@
+{
+    "num_aircraft": 200,
+    "total_flights": 1000,
+    "prefixspan_time_ms": 2.48,
+    "gsp_time_ms": 431.4,
+    "speedup_factor": 173.61,
+    "dbscan_clusters": 4,
+    "silhouette_score": 0.3441,
+    "st_dbscan_hotspots": 4,
+    "graph_nodes": 20,
+    "graph_edges": 358,
+    "rf_accuracy": 0.77,
+    "rf_f1": 0.3429,
+    "rf_auc": 0.7143,
+    "svm_accuracy": 0.795,
+    "svm_f1": 0.3881,
+    "base_accuracy": 0.74,
+    "base_f1": 0.037
+}
